@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PHASER — Video Demonstrations (CoRL 2026 Submission)</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+         max-width: 1100px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
+  h1 { font-size: 1.5rem; margin-bottom: .2rem; }
+  .sub { color: #777; margin-top: 0; font-size: .95rem; }
+  .anon { background:#fff3cd; color:#6a5200; border:1px solid #f0d488;
+          padding:6px 10px; border-radius:6px; font-size:.85rem; display:inline-block; }
+  figure { margin: 28px 0; }
+  video { width: 100%; height: auto; border:1px solid #ccc; border-radius:6px; background:#000; }
+  figcaption { color:#555; font-size:.9rem; margin-top:10px; }
+  .legend b.ok { color:#2ECC71; } .legend b.fail { color:#E74C3C; }
+  code { background:#f4f4f4; padding:1px 5px; border-radius:4px; }
+</style>
+</head>
+<body>
+  <h1>PHASER: Phase-Aware Semantic Experience Replay for VLA Continual Learning</h1>
+  <p class="sub">Qualitative video demonstrations &mdash; anonymous supplementary material for the CoRL&nbsp;2026 double-blind submission.</p>
+  <p class="anon">Anonymous page: no author or affiliation information is provided, in compliance with double-blind review.</p>
+
+  <figure>
+    <video controls autoplay muted loop playsinline src="filmstrip_qg_goal.mp4"></video>
+    <figcaption class="legend">
+      <b>Film-strip comparison on QwenGR00T-3B &times; LIBERO-Goal</b> (matched-budget final-checkpoint policies, all 10 tasks in canonical order).
+      <b>Top row</b> is the uniform-replay ER baseline; <b>bottom row</b> is PHASER (ours). Each tile is a real rollout with a
+      <b class="ok">green&nbsp;OK</b> / <b class="fail">red&nbsp;FAIL</b> outcome badge. ER fails four tasks
+      (<code>bowl&rarr;stove</code>, <code>turn&nbsp;on&nbsp;stove</code>, <code>wine&rarr;cabinet</code>, <code>push&nbsp;plate</code>)
+      where uniform replay starves a brief but decisive contact-transition sub-skill, whereas PHASER completes all ten.
+    </figcaption>
+  </figure>
+</body>
+</html>
