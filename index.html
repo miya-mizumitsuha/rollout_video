@@ -8,16 +8,18 @@
 <style>
   :root { color-scheme: light dark; }
   body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-         max-width: 1100px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
+         max-width: 1180px; margin: 40px auto; padding: 0 20px; line-height: 1.6; }
   h1 { font-size: 1.5rem; margin-bottom: .2rem; }
+  h2 { font-size: 1.15rem; margin-top: 2.2rem; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
   .sub { color: #777; margin-top: 0; font-size: .95rem; }
   .anon { background:#fff3cd; color:#6a5200; border:1px solid #f0d488;
           padding:6px 10px; border-radius:6px; font-size:.85rem; display:inline-block; }
-  figure { margin: 28px 0; }
+  figure { margin: 18px 0 30px; }
   video { width: 100%; height: auto; border:1px solid #ccc; border-radius:6px; background:#000; }
   figcaption { color:#555; font-size:.9rem; margin-top:10px; }
-  .legend b.ok { color:#2ECC71; } .legend b.fail { color:#E74C3C; }
+  b.ok { color:#2ECC71; } b.fail { color:#E74C3C; }
   code { background:#f4f4f4; padding:1px 5px; border-radius:4px; }
+  .note { color:#888; font-size:.82rem; }
 </style>
 </head>
 <body>
@@ -25,14 +27,26 @@
   <p class="sub">Qualitative video demonstrations &mdash; anonymous supplementary material for the CoRL&nbsp;2026 double-blind submission.</p>
   <p class="anon">Anonymous page: no author or affiliation information is provided, in compliance with double-blind review.</p>
 
+  <h2>1. Continual-learning dynamics: retention matrix building up as tasks arrive</h2>
   <figure>
-    <video controls autoplay muted loop playsinline src="filmstrip_qg_goal.mp4"></video>
-    <figcaption class="legend">
-      <b>Film-strip comparison on QwenGR00T-3B &times; LIBERO-Goal</b> (matched-budget final-checkpoint policies, all 10 tasks in canonical order).
-      <b>Top row</b> is the uniform-replay ER baseline; <b>bottom row</b> is PHASER (ours). Each tile is a real rollout with a
-      <b class="ok">green&nbsp;OK</b> / <b class="fail">red&nbsp;FAIL</b> outcome badge. ER fails four tasks
-      (<code>bowl&rarr;stove</code>, <code>turn&nbsp;on&nbsp;stove</code>, <code>wine&rarr;cabinet</code>, <code>push&nbsp;plate</code>)
-      where uniform replay starves a brief but decisive contact-transition sub-skill, whereas PHASER completes all ten.
+    <video controls autoplay muted loop playsinline src="qg_goal_progressive.mp4"></video>
+    <figcaption>
+      Lower-triangular <b>retention matrix</b> on QwenGR00T-3B &times; LIBERO-Goal, revealed one row per newly-learned task.
+      Row <code>+Tk</code> = the policy checkpoint right after learning task <code>k</code>; each cell is a rollout of an
+      earlier task <code>i&le;k</code> re-evaluated at that checkpoint (<b class="ok">green</b> success / <b class="fail">red</b> failure).
+      As new tasks arrive, the <b>ER baseline</b> (left) progressively loses earlier skills (the triangle reddens), while
+      <b>PHASER</b> (right) keeps them (stays green) &mdash; the per-cell <em>retained</em> tally widens in PHASER's favour.
+      <span class="note">Selected representative rollouts (one per cell).</span>
+    </figcaption>
+  </figure>
+
+  <h2>2. Final-checkpoint snapshot: per-task film-strip</h2>
+  <figure>
+    <video controls muted loop playsinline src="filmstrip_qg_goal.mp4"></video>
+    <figcaption>
+      All 10 LIBERO-Goal tasks at the final checkpoint. <b>Top</b> row ER, <b>bottom</b> row PHASER.
+      ER fails several tasks (<code>bowl&rarr;stove</code>, <code>turn&nbsp;on&nbsp;stove</code>, <code>wine&rarr;cabinet</code>,
+      <code>push&nbsp;plate</code>) where uniform replay starves a brief contact-transition sub-skill; PHASER completes all ten.
     </figcaption>
   </figure>
 </body>
