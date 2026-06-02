@@ -29,13 +29,14 @@
 
   <h2>1. Continual-learning dynamics: retention matrix building up as tasks arrive</h2>
   <figure>
-    <video controls autoplay muted loop playsinline src="qg_goal_progressive.mp4"></video>
+    <video controls autoplay muted loop playsinline src="ov_long_progressive.mp4"></video>
     <figcaption>
-      Lower-triangular <b>retention matrix</b> on QwenGR00T-3B &times; LIBERO-Goal, revealed one row per newly-learned task.
+      Lower-triangular <b>retention matrix</b> on OpenVLA-7B &times; LIBERO-Long, revealed one row per newly-learned task.
       Row <code>+Tk</code> = the policy checkpoint right after learning task <code>k</code>; each cell is a rollout of an
       earlier task <code>i&le;k</code> re-evaluated at that checkpoint (<b class="ok">green</b> success / <b class="fail">red</b> failure).
-      As new tasks arrive, the <b>ER baseline</b> (left) progressively loses earlier skills (the triangle reddens), while
-      <b>PHASER</b> (right) keeps them (stays green) &mdash; the per-cell <em>retained</em> tally widens in PHASER's favour.
+      As new tasks arrive, the <b>ER baseline</b> (left) progressively loses earlier skills (the triangle reddens, retaining 16/55),
+      while <b>PHASER</b> (right) keeps every task it has learned (the whole triangle stays green, 55/55) &mdash; a clean view of
+      anti-forgetting that mirrors the NBT matrix in the paper.
       <span class="note">Selected representative rollouts (one per cell).</span>
     </figcaption>
   </figure>
@@ -44,7 +45,7 @@
   <figure>
     <video controls muted loop playsinline src="filmstrip_qg_goal.mp4"></video>
     <figcaption>
-      All 10 LIBERO-Goal tasks at the final checkpoint. <b>Top</b> row ER, <b>bottom</b> row PHASER.
+      All 10 LIBERO-Goal tasks at the final checkpoint on QwenGR00T-3B. <b>Top</b> row ER, <b>bottom</b> row PHASER.
       ER fails several tasks (<code>bowl&rarr;stove</code>, <code>turn&nbsp;on&nbsp;stove</code>, <code>wine&rarr;cabinet</code>,
       <code>push&nbsp;plate</code>) where uniform replay starves a brief contact-transition sub-skill; PHASER completes all ten.
     </figcaption>
