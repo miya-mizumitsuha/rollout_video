@@ -16,7 +16,7 @@
           padding:6px 10px; border-radius:6px; font-size:.85rem; display:inline-block; }
   figure { margin: 18px 0 30px; }
   video { width: 100%; height: auto; border:1px solid #ccc; border-radius:6px; background:#000; }
-  figcaption { color:#555; font-size:.9rem; margin-top:10px; }
+  figcaption { color:#333; font-size:1.02rem; line-height:1.55; margin-top:12px; }
   b.ok { color:#2ECC71; } b.fail { color:#E74C3C; }
   code { background:#f4f4f4; padding:1px 5px; border-radius:4px; }
   .note { color:#888; font-size:.82rem; }
@@ -36,9 +36,9 @@
       earlier task <code>i&le;k</code> re-evaluated there. When a row is revealed its cells <b>play the actual rollout</b>
       (highlighted), older rows freeze on their last frame (<b class="ok">green</b> success / <b class="fail">red</b> failure).
       Both methods learn each new task (the diagonal is green), but as the stream continues the <b>ER baseline</b> (left)
-      forgets earlier tasks (its triangle reddens, retaining 20/55) while <b>PHASER</b> (right) keeps every learned task
+      forgets earlier tasks (its triangle reddens, retaining 25/55) while <b>PHASER</b> (right) keeps every learned task
       (the triangle stays green, 55/55).
-      <span class="note">Selected representative rollouts (one per cell).</span>
+      <span class="note">Each cell shows the majority-outcome rollout (representative, not best-case).</span>
     </figcaption>
   </figure>
 
@@ -46,10 +46,10 @@
   <figure>
     <video controls autoplay muted loop playsinline src="ov_column_T3.mp4"></video>
     <figcaption>
-      One LIBERO-Long task (<code>turn on the stove and put the moka pot on it</code>) re-evaluated at every checkpoint
-      after it is first learned. <b>Top</b> row ER, <b>bottom</b> row PHASER. ER learns the skill (first panel,
-      <b class="ok">success</b>) but each subsequently learned task overwrites it, so it degrades to <b class="fail">failure</b>;
-      PHASER keeps executing it across the entire remaining task stream.
+      One LIBERO-Long task (<code>turn on the stove and put the moka pot on it</code>) re-evaluated at representative
+      checkpoints (after T3, T5, T7, T10) as the task stream continues. <b>Top</b> row ER, <b>bottom</b> row PHASER.
+      ER learns the skill (first panel, <b class="ok">Success</b>) but later tasks overwrite it, so by the majority of
+      later checkpoints it degrades to <b class="fail">Failure</b>; PHASER keeps executing it to the end of the stream.
     </figcaption>
   </figure>
 
