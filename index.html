@@ -29,19 +29,31 @@
 
   <h2>1. Continual-learning dynamics: retention matrix building up as tasks arrive</h2>
   <figure>
-    <video controls autoplay muted loop playsinline src="ov_long_progressive.mp4"></video>
+    <video controls autoplay muted loop playsinline src="ov_long_progressive_motion.mp4"></video>
     <figcaption>
       Lower-triangular <b>retention matrix</b> on OpenVLA-7B &times; LIBERO-Long, revealed one row per newly-learned task.
-      Row <code>+Tk</code> = the policy checkpoint right after learning task <code>k</code>; each cell is a rollout of an
-      earlier task <code>i&le;k</code> re-evaluated at that checkpoint (<b class="ok">green</b> success / <b class="fail">red</b> failure).
-      As new tasks arrive, the <b>ER baseline</b> (left) progressively loses earlier skills (the triangle reddens, retaining 16/55),
-      while <b>PHASER</b> (right) keeps every task it has learned (the whole triangle stays green, 55/55) &mdash; a clean view of
-      anti-forgetting that mirrors the NBT matrix in the paper.
+      Row <code>+Tk</code> = the checkpoint right after learning task <code>k</code>; each cell is a rollout of an
+      earlier task <code>i&le;k</code> re-evaluated there. When a row is revealed its cells <b>play the actual rollout</b>
+      (highlighted), older rows freeze on their last frame (<b class="ok">green</b> success / <b class="fail">red</b> failure).
+      Both methods learn each new task (the diagonal is green), but as the stream continues the <b>ER baseline</b> (left)
+      forgets earlier tasks (its triangle reddens, retaining 20/55) while <b>PHASER</b> (right) keeps every learned task
+      (the triangle stays green, 55/55).
       <span class="note">Selected representative rollouts (one per cell).</span>
     </figcaption>
   </figure>
 
-  <h2>2. Final-checkpoint snapshot: per-task film-strip</h2>
+  <h2>2. Single-task close-up: one skill hammered by the rest of the stream</h2>
+  <figure>
+    <video controls autoplay muted loop playsinline src="ov_column_T3.mp4"></video>
+    <figcaption>
+      One LIBERO-Long task (<code>turn on the stove and put the moka pot on it</code>) re-evaluated at every checkpoint
+      after it is first learned. <b>Top</b> row ER, <b>bottom</b> row PHASER. ER learns the skill (first panel,
+      <b class="ok">success</b>) but each subsequently learned task overwrites it, so it degrades to <b class="fail">failure</b>;
+      PHASER keeps executing it across the entire remaining task stream.
+    </figcaption>
+  </figure>
+
+  <h2>3. Final-checkpoint snapshot: per-task film-strip</h2>
   <figure>
     <video controls muted loop playsinline src="filmstrip_qg_goal.mp4"></video>
     <figcaption>
